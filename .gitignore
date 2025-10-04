@@ -6,6 +6,7 @@
 build/
 out/
 classes/
+remappedSrc/
 
 # eclipse
 
