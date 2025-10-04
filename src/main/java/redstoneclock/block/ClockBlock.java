@@ -58,7 +58,16 @@ public class ClockBlock extends HorizontalFacingBlock implements BlockEntityProv
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock,
             WireOrientation wireOrientation, boolean notify) {
         super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
+        scheduleRedstoneTick(world, pos, state);
+    }
 
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        scheduleRedstoneTick(world, pos, state);
+    }
+
+    private static void scheduleRedstoneTick(World world, BlockPos pos, BlockState state) {
         var power = 0;
         var direction = state.get(Properties.HORIZONTAL_FACING);
         var dirPos = pos.offset(direction);
