@@ -1,8 +1,10 @@
 package redstoneclock.screen;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -215,22 +217,22 @@ public class ClockScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
         context.drawText(textRenderer, 
             Text.translatable("screen.redstoneclock.clock.title"), 
-            originX + 10, originY + 10, 0x333333, false);
+            originX + 10, originY + 10, 0xFF333333, false);
         context.drawText(textRenderer, 
             Text.translatable("screen.redstoneclock.clock.active_interval"), 
-            originX + 10, originY + 36, 0x333333, false);
+            originX + 10, originY + 36, 0xFF333333, false);
             context.drawText(textRenderer, 
             Text.translatable("screen.redstoneclock.clock.inactive_interval"), 
-            originX + 10, originY + 60, 0x333333, false);
+            originX + 10, originY + 60, 0xFF333333, false);
         context.drawText(textRenderer, 
             Text.translatable("screen.redstoneclock.clock.signal_strength"), 
-            originX + 10, originY + 88, 0x333333, false);
+            originX + 10, originY + 88, 0xFF333333, false);
     }
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
         super.renderBackground(context, mouseX, mouseY, delta);
-        context.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, originX, originY, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, 512, 512);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, originX, originY, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, 512, 512);
     }
 
     private void adjustActiveInterval(int amount) {
