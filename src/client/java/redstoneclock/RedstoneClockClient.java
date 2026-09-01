@@ -20,6 +20,6 @@ public class RedstoneClockClient implements ClientModInitializer {
 	}
 
 	public static void receiveOpenEditorPayload(OpenEditorS2CPayload payload, ClientPlayNetworking.Context context) {
-		context.client().setScreen(new ClockScreen(payload));
+		context.client().gui.setScreen(new ClockScreen(payload));
 	}
 }

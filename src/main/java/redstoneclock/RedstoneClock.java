@@ -32,8 +32,8 @@ public class RedstoneClock implements ModInitializer {
 	}
 
 	private void registerNetworkPayloads() {
-		PayloadTypeRegistry.playS2C().register(OpenEditorS2CPayload.ID, OpenEditorS2CPayload.CODEC);
-		PayloadTypeRegistry.playC2S().register(SaveIntervalsC2SPayload.ID, SaveIntervalsC2SPayload.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(OpenEditorS2CPayload.ID, OpenEditorS2CPayload.CODEC);
+		PayloadTypeRegistry.serverboundPlay().register(SaveIntervalsC2SPayload.ID, SaveIntervalsC2SPayload.CODEC);
 	}
 
 	private void registerNetworkReceivers() {
@@ -41,7 +41,7 @@ public class RedstoneClock implements ModInitializer {
 	}
 
 	public static void receiveSaveIntervalsPayload(SaveIntervalsC2SPayload payload, ServerPlayNetworking.Context context) {
-        if (context.player().getEntityWorld().getBlockEntity(payload.blockPos()) instanceof ClockBlockEntity clockBlockEntity) {
+        if (context.player().level().getBlockEntity(payload.blockPos()) instanceof ClockBlockEntity clockBlockEntity) {
 			clockBlockEntity.updateFromPayload(payload);
 		}
 	}

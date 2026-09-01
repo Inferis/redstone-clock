@@ -1,7 +1,7 @@
 package redstoneclock.block;
 
-import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class RedstoneClockProperties {
-    public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 }

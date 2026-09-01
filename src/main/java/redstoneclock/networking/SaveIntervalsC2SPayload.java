@@ -1,25 +1,25 @@
 package redstoneclock.networking;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 import redstoneclock.RedstoneClock;
 
-public record SaveIntervalsC2SPayload(BlockPos blockPos, int activeInterval, int inactiveInterval, int signalStrength) implements CustomPayload {
-    public static final CustomPayload.Id<SaveIntervalsC2SPayload> ID = new CustomPayload.Id<>(Identifier.of(RedstoneClock.MODID, "save_intervals_c2s_payload"));
+public record SaveIntervalsC2SPayload(BlockPos blockPos, int activeInterval, int inactiveInterval, int signalStrength) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SaveIntervalsC2SPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(RedstoneClock.MODID, "save_intervals_c2s_payload"));
 
-    public static final PacketCodec<RegistryByteBuf, SaveIntervalsC2SPayload> CODEC = PacketCodec.tuple(
-        BlockPos.PACKET_CODEC, SaveIntervalsC2SPayload::blockPos,
-        PacketCodecs.INTEGER, SaveIntervalsC2SPayload::activeInterval,
-        PacketCodecs.INTEGER, SaveIntervalsC2SPayload::inactiveInterval, 
-        PacketCodecs.INTEGER, SaveIntervalsC2SPayload::signalStrength, 
+    public static final StreamCodec<RegistryFriendlyByteBuf, SaveIntervalsC2SPayload> CODEC = StreamCodec.composite(
+        BlockPos.STREAM_CODEC, SaveIntervalsC2SPayload::blockPos,
+        ByteBufCodecs.INT, SaveIntervalsC2SPayload::activeInterval,
+        ByteBufCodecs.INT, SaveIntervalsC2SPayload::inactiveInterval, 
+        ByteBufCodecs.INT, SaveIntervalsC2SPayload::signalStrength, 
         SaveIntervalsC2SPayload::new);
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

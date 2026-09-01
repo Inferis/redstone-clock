@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
 }
@@ -34,11 +34,10 @@ loom {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 }
 
@@ -51,7 +50,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -60,8 +59,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -88,26 +87,26 @@ publishing {
 	}
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
-
-modrinth {
-	var tokenFileName = ".modrinth_token";
-	File tokenFile = new File(tokenFileName);
-	if (!tokenFile.exists()) {
-		return;		
-	}
-
-	BufferedReader br = new BufferedReader(new FileReader(tokenFileName));
-    token = br.readLine(); 
-
-    projectId = 'I8TMtgw8' // The ID of your Modrinth project. Slugs will not work.
-    versionNumber = '0.2.1' // The (preferably SemVer) version of the mod. If not specified, it'll use the `version` declaration
-    versionName = '0.2.1-1.21.10' // The version title. If not specified, it'll use the version number
-	changelog = "Updated to 1.21.10."
-    uploadFile = remapJar // Tells Minotaur to use the remapped jar
-    gameVersions = ['1.21.10'] // An array of game versions the version supports
-    loaders = ['fabric'] // Self-explanatory.
-    dependencies = [
-            new ModDependency('P7dR8mSH', 'required'), // Fabric API
-    ]
-}
+//import com.modrinth.minotaur.dependencies.ModDependency
+//
+//modrinth {
+//	var tokenFileName = ".modrinth_token";
+//	File tokenFile = new File(tokenFileName);
+//	if (!tokenFile.exists()) {
+//		return;
+//	}
+//
+//	BufferedReader br = new BufferedReader(new FileReader(tokenFileName));
+//    token = br.readLine();
+//
+//    projectId = 'I8TMtgw8' // The ID of your Modrinth project. Slugs will not work.
+//    versionNumber = '0.2.1' // The (preferably SemVer) version of the mod. If not specified, it'll use the `version` declaration
+//    versionName = '0.2.1-1.21.10' // The version title. If not specified, it'll use the version number
+//	changelog = "Updated to 1.21.10."
+//    uploadFile = remapJar // Tells Minotaur to use the remapped jar
+//    gameVersions = ['1.21.10'] // An array of game versions the version supports
+//    loaders = ['fabric'] // Self-explanatory.
+//    dependencies = [
+//            new ModDependency('P7dR8mSH', 'required'), // Fabric API
+//    ]
+//}
