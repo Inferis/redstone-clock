@@ -27,8 +27,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ClockBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    private final static MapCodec<ClockBlock> CODEC = Block.simpleCodec(ClockBlock::new);
-
     public ClockBlock(Properties settings) {
         super(settings);
         registerDefaultState(defaultBlockState()
@@ -100,11 +98,6 @@ public class ClockBlock extends HorizontalDirectionalBlock implements EntityBloc
         }
 
         return 0;
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Override
